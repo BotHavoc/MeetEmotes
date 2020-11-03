@@ -1,0 +1,42 @@
+{
+"manifest_version": 2,
+    "name": "Meet Emotes",
+    "description": "Meet Emotes! (works on messenger too!)",
+    "permissions": [
+	    "tabs",
+	    "storage",
+	    "declarativeContent"
+	],
+    "version": "0.1.0",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://meet.google.com/*",
+                "https://www.messenger.com/t/*",
+                "https://www.facebook.com/messages/t/*"
+            ],
+            "js": [
+				"js/jquery-3.5.1.min.js",
+                "content.js"
+            ],
+		    "run_at": "document_idle",
+		    "all_frames": false
+        }
+    ],
+	"background": {
+	    "scripts": [
+			"background.js"
+	    ],
+	    "persistant": false
+	},
+    "externally_connectable" : {
+		"matches": [ "*://meet.google.com/*" ]
+	},
+    "browser_action": {
+	    "default_popup": "popup.html",
+	    "default_title": "Meet Emotes"
+	},
+	"background": {
+        "scripts": ["js/jquery-3.5.1.min.js"]
+    }
+}
