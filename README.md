@@ -5,6 +5,8 @@ Yes. You read that correctly. Now download and install.
 
 ## Installation
 
+First, click the green button (with "Code" on it) and press "Download ZIP".
+
 1. unzip the file.
 2. Go to the extensions settings page (For Chrome: chrome://extensions)
 3. Turn on "Developer Mode" (Chrome: top right corner)
