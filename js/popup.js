@@ -6,13 +6,11 @@ function getversion() {
 	return version;
 }
 
-
-
 function getMessage(){
 		$.getJSON(
 		    'https://raw.githubusercontent.com/BotHavoc/MeetEmotes-emotes/main/messages.json', 
 		    function(data) {
-				$("#message").html(data["version"])
+				$("#message").html(data[version])
 			}
 		);
 }
