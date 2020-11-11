@@ -7,7 +7,7 @@
 		"storage",
 		"declarativeContent"
 	],
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"content_scripts": [
 		{
 			"matches": [
@@ -36,5 +36,6 @@
 	"browser_action": {
 		"default_popup": "popup.html",
 		"default_title": "Meet Emotes"
-	}
+	},
+	"content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'"
 }

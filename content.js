@@ -1,5 +1,6 @@
-let emotes = [];
-let emoteslink = [];
+let updated = 0;
+let emotes = {};
+const branch = "main";
 
 function replaceAll(str, from, to){
 	return str.split(from).join(to);
@@ -14,24 +15,17 @@ function getClass() {
 	}
 }
 
-function emoteurl(str, ft, height=20){
-	return `<img style="vertical-align:middle;height:` + height + `px;" title="` + str +`" src='https://raw.githubusercontent.com/BotHavoc/MeetEmotes-emotes/main/emotes/` + str + `.` + ft + `' />`;
+function emoteurl(str, dir, height=20){
+	return `<img style="vertical-align:middle;height:` + height + `px;" title="` + str +`" src='https://raw.githubusercontent.com/BotHavoc/MeetEmotes-emotes/` + branch + `/emotes/` + dir + `' />`;
 }
 
 function updateEmotes(){
-	//console.log("update.");
-	if(emotes.length) return;
+	if(updated) return;
 	$.getJSON(
-	    'https://raw.githubusercontent.com/BotHavoc/MeetEmotes-emotes/main/emotes.json', 
+	    'https://raw.githubusercontent.com/BotHavoc/MeetEmotes-emotes/' + branch + '/directory.json', 
 	    function(data) {
-			// console.log(data);
-			let text = "";
-			data["filetypes"].forEach(type => {
-				data["emotes"][type].forEach(e => {
-					emotes.push(e);
-					emoteslink.push(type);
-				});
-			});
+			updated = 1;
+			emotes = data;
 		}
 	);
 }
@@ -44,15 +38,15 @@ function updateEmotes(){
         for(let t of textbox) {
             let val = t.innerHTML;
             let h = 20;
-            if(val.startsWith(":") && val.endsWith(":") && emotes.includes(val.slice(1,-1))){
+            if(val.startsWith(":") && val.endsWith(":") && emotes["emotes"].includes(val.slice(1,-1))){
 				h = 30;
 			}
             let newval = val;
             let n=0;
-            emotes.forEach(e => {
+            emotes["emotes"].forEach(e => {
 				n++;
-				newval = replaceAll(newval, `:${e}:`,emoteurl(e, emoteslink[n-1], h));
-				if(n==emotes.length){
+				newval = replaceAll(newval, `:${e}:`,emoteurl(e, emotes["dir"][e], h));
+				if(n==emotes["emotes"].length){
 					t.innerHTML = newval;
 				}
 			})
