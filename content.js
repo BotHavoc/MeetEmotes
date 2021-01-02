@@ -9,9 +9,9 @@ function replaceAll(str, from, to){
 function getClass() {
 	let url = window.location.href;
 	if(url.includes("messenger")){
-		return "_3oh- _58nk";
+		return ["_3oh- _58nk","ljqsnud1"];
 	} else if(url.includes("meet")){
-		return "oIy2qc";
+		return ["oIy2qc"];
 	}
 }
 
@@ -34,23 +34,26 @@ function updateEmotes(){
     MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
     const observer = new MutationObserver(function (mutations, observer) {
 		updateEmotes();
-        const textbox = document.getElementsByClassName(getClass());
-        for(let t of textbox) {
-            let val = t.innerHTML;
-            let h = 20;
-            if(val.startsWith(":") && val.endsWith(":") && emotes["emotes"].includes(val.slice(1,-1))){
-				h = 30;
-			}
-            let newval = val;
-            let n=0;
-            emotes["emotes"].forEach(e => {
-				n++;
-				newval = replaceAll(newval, `:${e}:`,emoteurl(e, emotes["dir"][e], h));
-				if(n==emotes["emotes"].length){
-					t.innerHTML = newval;
+		const classes = getClass();
+		classes.forEach(cname => {
+	        const textbox = document.getElementsByClassName(cname);
+	        for(let t of textbox) {
+	            let val = t.innerHTML;
+	            let h = 20;
+	            if(val.startsWith(":") && val.endsWith(":") && emotes["emotes"].includes(val.slice(1,-1))){
+					h = 30;
 				}
-			})
-        };
+	            let newval = val;
+	            let n=0;
+	            emotes["emotes"].forEach(e => {
+					n++;
+					newval = replaceAll(newval, `:${e}:`,emoteurl(e, emotes["dir"][e], h));
+					if(n==emotes["emotes"].length){
+						t.innerHTML = newval;
+					}
+				})
+	        };
+		});
     });
     observer.observe(document, {
         subtree: true,
