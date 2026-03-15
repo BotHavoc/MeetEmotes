@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function() {
           pageUrl: {hostEquals: 'meet.google.com'},
         })
         ],
-            actions: [new chrome.declarativeContent.ShowPageAction()]
+            actions: [new chrome.declarativeContent.ShowAction()]
       }]);
     });
   });
